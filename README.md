@@ -38,14 +38,12 @@ For example, `pixel31` indicates the pixel that is in the fourth column from the
 
 Visually, if we omit the "pixel" prefix, the pixels make up the image like this:
 
-`
 `000 001 002 003 ... 026 027`
 `028 029 030 031 ... 054 055`
 `056 057 058 059 ... 082 083`
-` |`  ` |`   `|`   `|`  `...`  `| `  `|`
+` |   |   |   |  ...  |   |`
 `728 729 730 731 ... 754 755`
-`756 757 758 759 ... 782 783`
-`
+`756 757 758 759 ... 782 783` 
 
 The test data set, `test.csv`, is the same as the training set, except that it does not contain the `label` column.
 
