@@ -1,41 +1,58 @@
 # CoE 197-Z Deep Learning Project
-### [IEEE-CIS Fraud Detection](https://www.kaggle.com/c/ieee-fraud-detection/overview)
-##### Can you detect fraud from customer transactions?
+### [Kannada MNIST](https://www.kaggle.com/c/Kannada-MNIST)
+##### MNIST like datatset for Kannada handwritten digits
 
-Datasets can be found [here](https://drive.google.com/open?id=1JWhnL8gI-imOe4KV9CY6TsKASStvj8G4).
+## Bored of MNIST?
+The goal of this competition is to provide a simple extension to the classic [MNIST competition](https://www.kaggle.com/c/digit-recognizer/) we're all familiar with. Instead of using Arabic numerals, it uses a recently-released dataset of Kannada digits.
 
-## I. Overview
-Imagine standing at the check-out counter at the grocery store with a long line behind you and the cashier not-so-quietly announces that your card has been declined. In this moment, you probably aren’t thinking about the data science that determined your fate.
+Kannada is a language spoken predominantly by people of Karnataka in southwestern India. The language has roughly 45 million native speakers and is written using the Kannada script. [Wikipedia](https://en.wikipedia.org/wiki/Kannada)
 
-Embarrassed, and certain you have the funds to cover everything needed for an epic nacho party for 50 of your closest friends, you try your card again. Same result. As you step aside and allow the cashier to tend to the next customer, you receive a text message from your bank. “Press 1 if you really tried to spend $500 on cheddar cheese.”
+![Kannada](https://storage.googleapis.com/kaggle-media/competitions/Kannada-MNIST/kannada.png)
 
-While perhaps cumbersome (and often embarrassing) in the moment, this fraud prevention system is actually saving consumers millions of dollars per year. Researchers from the [IEEE Computational Intelligence Society](https://cis.ieee.org/) (IEEE-CIS) want to improve this figure, while also improving the customer experience. With higher accuracy fraud detection, you can get on with your chips without the hassle.
+This competition uses the same format as the [MNIST competition](https://www.kaggle.com/c/digit-recognizer/) in terms of how the data is structured, but it's different in that it is a synchronous re-run Kernels competition. You write your code in a Kaggle Notebook, and when you submit the results, your code is scored on both the public test set, as well as a private (unseen) test set.
 
-IEEE-CIS works across a variety of AI and machine learning areas, including deep neural networks, fuzzy systems, evolutionary computation, and swarm intelligence. Today they’re partnering with the world’s leading payment service company, [Vesta Corporation](https://trustvesta.com/), seeking the best solutions for fraud prevention industry, and now you are invited to join the challenge.
+## Technical Information
+All details of the dataset curation has been captured in the paper titled: Prabhu, Vinay Uday. "Kannada-MNIST: A new handwritten digits dataset for the Kannada language." arXiv preprint [arXiv:1908.01242 (2019)](https://arxiv.org/abs/1908.01242)
 
-In this competition, you’ll benchmark machine learning models on a challenging large-scale dataset. The data comes from Vesta's real-world e-commerce transactions and contains a wide range of features from device type to product features. You also have the opportunity to create new features to improve your results.
+The github repo of the author [can be found here](https://github.com/vinayprabhu/Kannada_MNIST).
 
-If successful, you’ll improve the efficacy of fraudulent transaction alerts for millions of people around the world, helping hundreds of thousands of businesses reduce their fraud loss and increase their revenue. And of course, you will save party people just like you the hassle of false positives.
+On the [originally-posted dataset](https://www.kaggle.com/higgstachyon/kannada-mnist), the author suggests some interesting questions you may be interested in exploring. Please note, although this dataset has been released in full, the purpose of this competition is for practice, not to find the labels to submit a perfect score.
 
-## II. Data Description 
-In this competition you are predicting the probability that an online transaction is fraudulent, as denoted by the binary target `isFraud`.
+In addition to the main dataset, the author also disseminated an additional real world handwritten dataset (with 10k images), termed as the 'Dig-MNIST dataset' that can serve as an out-of-domain test dataset. It was created with the help of volunteers that were non-native users of the language, authored on a smaller sheet and scanned with different scanner settings compared to the main dataset. This 'dig-MNIST' dataset serves as a more difficult test-set (An accuracy pf 76.1% was reported in the paper cited above) and achieving approximately 98+% accuracy on this test dataset would be rather commendable.
 
-The data is broken into two files `identity` and `transaction`, which are joined by `TransactionID`. Not all transactions have corresponding identity information.
+## Acknowledgments
+Kaggle thanks [Vinay Prabhu](https://www.kaggle.com/higgstachyon) for providing this interesting dataset for a Playground competition.
 
-### Categorical Features - Transaction
-- `ProductCD`
-- `card1 - card6`
-- `addr1, addr2`
-- `P_emaildomain`
-- `R_emaildomain`
-- `M1 - M9`
+Image reference: https://www.researchgate.net/figure/speech-for-Kannada-numbers_fig2_313113588
 
-### Categorical Features - Identity
-- `DeviceType`
-- `DeviceInfo`
-- `id_12 - id_38`
+## Data Description
+The data files `train.csv` and `test.csv` contain gray-scale images of hand-drawn digits, from zero through nine, in the Kannada script.
 
-### Files
-- **train_{transaction, identity}.csv** - the training set
-- **test_{transaction, identity}.csv** - the test set (you must predict the isFraud value for these observations)
+Each image is 28 pixels in height and 28 pixels in width, for a total of 784 pixels in total. Each pixel has a single pixel-value associated with it, indicating the lightness or darkness of that pixel, with higher numbers meaning darker. This pixel-value is an integer between 0 and 255, inclusive.
+
+The training data set, `train.csv`, has 785 columns. The first column, called `label`, is the digit that was drawn by the user. The rest of the columns contain the pixel-values of the associated image.
+
+Each pixel column in the training set has a name like `pixel{x}`, where `x` is an integer between 0 and 783, inclusive. To locate this pixel on the image, suppose that we have decomposed `x` as `x = i * 28 + j`, where `i` and `j` are integers between 0 and 27, inclusive. Then `pixel{x}` is located on row `i` and column `j` of a 28 x 28 matrix, (indexing by zero).
+
+For example, `pixel31` indicates the pixel that is in the fourth column from the left, and the second row from the top, as in the ascii-diagram below.
+
+Visually, if we omit the "pixel" prefix, the pixels make up the image like this:
+
+`
+000 001 002 003 ... 026 027
+028 029 030 031 ... 054 055
+056 057 058 059 ... 082 083
+ |   |   |   |  ...  |   |
+728 729 730 731 ... 754 755
+756 757 758 759 ... 782 783 
+`
+
+The test data set, `test.csv`, is the same as the training set, except that it does not contain the `label` column.
+
+The evaluation metric for this contest is the categorization accuracy, or the proportion of test images that are correctly classified. For example, a categorization accuracy of 0.97 indicates that you have correctly classified all but 3% of the images.
+
+## Files
+- **train.csv** - the training set
+- **test.csv** - the test set
 - **sample_submission.csv** - a sample submission file in the correct format
+- **Dig-MNIST.csv** - an additional labeled set of characters that can be used to validate or test model results before submitting to the leaderboard
