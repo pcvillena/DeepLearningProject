@@ -279,7 +279,7 @@ plt.xlabel('Epoch')
 
 
 
-![png](output_19_1.png)
+![png](img/output_19_1.png)
 
 
 Given the changes in learning rates. We finally look at how the model has learned across time.
@@ -311,7 +311,7 @@ plt.show()
 ```
 
 
-![png](output_21_0.png)
+![png](img/output_21_0.png)
 
 
 Across the epochs, we see that the model learns really quickly -- this may come from the use of minibatches in learning. Moreover, we see that at any epoch, the generalization performance is better. This can be attributed to the minibatches, the data augmentation, as well as, the number of features that the model generates thanks to the VGG framework.
