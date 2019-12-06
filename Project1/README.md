@@ -1,4 +1,4 @@
-# CoE 197-Z Deep Learning Project
+# CoE 197-Z Deep Learning Project 1
 ### [Kannada MNIST](https://www.kaggle.com/c/Kannada-MNIST)
 ##### MNIST like datatset for Kannada handwritten digits
 
